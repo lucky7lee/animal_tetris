@@ -1,0 +1,549 @@
+/* style.css - 귀여운 동물 테트리스 반응형 스타일링 */
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@600;700;800;900&display=swap');
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #FDF2F8 0%, #EDE9FE 50%, #E0F2FE 100%);
+  --panel-bg: rgba(255, 255, 255, 0.78);
+  --panel-border: rgba(255, 255, 255, 0.9);
+  --card-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.1), 0 8px 10px -6px rgba(124, 58, 237, 0.06);
+  --primary: #8B5CF6;
+  --primary-hover: #7C3AED;
+  --accent-pink: #EC4899;
+  --accent-yellow: #F59E0B;
+  --accent-cyan: #06B6D4;
+  --text-main: #334155;
+  --text-muted: #64748B;
+  --board-bg: #1E1B4B;
+  --board-grid: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  font-family: 'Jua', 'Nunito', sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
+
+/* 상단 네비게이션 & 타이틀 */
+header {
+  width: 100%;
+  max-width: 900px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.game-title {
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, #EC4899, #8B5CF6, #3B82F6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(236, 72, 153, 0.15);
+  letter-spacing: -0.5px;
+}
+
+.title-badge {
+  background: #FEE2E2;
+  color: #EF4444;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: var(--panel-bg);
+  border: 1.5px solid var(--panel-border);
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+}
+
+.icon-btn:hover {
+  transform: translateY(-2px);
+  background: #FFF;
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+.icon-btn.active {
+  background: #DDD6FE;
+  border-color: #8B5CF6;
+}
+
+/* 메인 게임 레이아웃 컨테이너 */
+.game-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  padding: 4px 16px 16px;
+  max-width: 1024px;
+  width: 100%;
+}
+
+/* 좌/우 사이드 패널 */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 150px;
+}
+
+.panel-card {
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid var(--panel-border);
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.panel-title {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.stat-value.high {
+  color: var(--accent-pink);
+  font-size: 1.3rem;
+}
+
+/* 미니 캔버스 (HOLD & NEXT) */
+.mini-canvas {
+  width: 90px;
+  height: 90px;
+  background: rgba(243, 244, 246, 0.6);
+  border-radius: 12px;
+  border: 1px dashed rgba(139, 92, 246, 0.3);
+}
+
+.next-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.next-item-canvas {
+  width: 80px;
+  height: 60px;
+  background: rgba(243, 244, 246, 0.6);
+  border-radius: 10px;
+}
+
+/* 중앙 게임 보드 영역 */
+.board-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas-frame {
+  position: relative;
+  background: #110e2e;
+  padding: 8px;
+  border-radius: 24px;
+  box-shadow: 0 16px 35px -5px rgba(79, 70, 229, 0.35), 0 0 0 4px #C4B5FD;
+}
+
+#tetrisCanvas {
+  display: block;
+  border-radius: 16px;
+  background-color: var(--board-bg);
+  background-image: 
+    linear-gradient(var(--board-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--board-grid) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* 오버레이 모달 (게임오버 / 일시정지) */
+.overlay {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  background: rgba(17, 14, 46, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  z-index: 20;
+  transition: opacity 0.2s ease;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-title {
+  font-size: 2.2rem;
+  color: #F472B6;
+  text-shadow: 0 2px 10px rgba(244, 114, 182, 0.5);
+}
+
+.overlay-desc {
+  font-size: 1rem;
+  color: #CBD5E1;
+}
+
+.play-btn {
+  background: linear-gradient(135deg, #EC4899, #8B5CF6);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 32px;
+  font-size: 1.2rem;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
+  transition: all 0.2s;
+}
+
+.play-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(236, 72, 153, 0.6);
+}
+
+.play-btn:active {
+  transform: scale(0.96);
+}
+
+/* PC 키보드 안내 가이드 */
+.key-guide {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  width: 100%;
+}
+
+.key-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.key-badge {
+  background: #E2E8F0;
+  color: #475569;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.72rem;
+  border-bottom: 2px solid #CBD5E1;
+}
+
+/* 동물 도감 미니 바 (하단) */
+.animal-legend {
+  width: 100%;
+  max-width: 900px;
+  background: var(--panel-bg);
+  border: 2px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 10px;
+  box-shadow: var(--card-shadow);
+  overflow-x: auto;
+  gap: 6px;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  gap: 2px;
+}
+
+.legend-canvas {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+/* 모바일 전용 상단 미니 대시보드 */
+.mobile-top-dashboard {
+  display: none;
+  width: 100%;
+  padding: 4px 12px;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.mobile-card {
+  background: var(--panel-bg);
+  border: 1.5px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 4px 8px;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-card .label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.mobile-card .val {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+/* 모바일 온스크린 컨트롤러 패드 */
+.mobile-controls {
+  display: none; /* PC에서는 숨김, 모바일 미디어쿼리에서 활성화 */
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 16px 20px;
+  margin-top: auto;
+}
+
+.ctrl-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+/* D-PAD (좌측) */
+.dpad-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(2, 56px);
+  gap: 8px;
+}
+
+.btn-ctrl {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-bottom: 4px solid #CBD5E1;
+  border-radius: 18px;
+  font-size: 1.4rem;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.06s, border-bottom 0.06s, background-color 0.06s;
+}
+
+.btn-ctrl:active, .btn-ctrl.pressed {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+  background: #F1F5F9;
+}
+
+.btn-left { grid-column: 1; grid-row: 2; }
+.btn-down { grid-column: 2; grid-row: 2; }
+.btn-right { grid-column: 3; grid-row: 2; }
+.btn-hold-mob {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.85rem;
+  font-weight: 800;
+  background: #F5F3FF;
+  border-color: #DDD6FE;
+  border-bottom-color: #C4B5FD;
+  color: #7C3AED;
+}
+
+/* 액션 버튼들 (우측) */
+.action-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-action-large {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px solid #FBCFE8;
+  border-bottom: 5px solid #F472B6;
+  background: linear-gradient(135deg, #FDF2F8, #FCE7F3);
+  color: #DB2777;
+  font-size: 1.3rem;
+  font-weight: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(244, 114, 182, 0.25);
+}
+
+.btn-action-large span {
+  font-size: 0.7rem;
+  margin-top: -2px;
+}
+
+.btn-action-drop {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #BAE6FD;
+  border-bottom: 4px solid #38BDF8;
+  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
+  color: #0284C7;
+  font-size: 1.2rem;
+  font-weight: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-action-drop span {
+  font-size: 0.65rem;
+  margin-top: -2px;
+}
+
+.btn-action-large:active, .btn-action-drop:active {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+}
+
+/* ==================================================== */
+/* 반응형 미디어 쿼리 (스마트폰 / 태블릿) */
+/* ==================================================== */
+@media (max-width: 768px) {
+  header {
+    padding: 8px 12px;
+  }
+  
+  .game-title {
+    font-size: 1.35rem;
+  }
+
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 8px;
+  }
+
+  /* 모바일에서는 사이드 패널 숨기고 상단 미니 바로 대체 */
+  .side-panel {
+    display: none;
+  }
+
+  .mobile-top-dashboard {
+    display: flex;
+  }
+
+  .mobile-controls {
+    display: block;
+  }
+
+  .canvas-frame {
+    padding: 5px;
+    border-radius: 18px;
+  }
+
+  .animal-legend {
+    display: none; /* 모바일 세로 화면 확보를 위해 숨김 (옵션 버튼으로 확인 가능) */
+  }
+
+  .top-actions .icon-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.05rem;
+  }
+}
+
+/* 작은 스마트폰 화면 (SE, 소형 기종) */
+@media (max-width: 380px) {
+  .dpad-wrap {
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(2, 48px);
+    gap: 6px;
+  }
+  
+  .btn-action-large {
+    width: 58px;
+    height: 58px;
+  }
+
+  .btn-action-drop {
+    width: 52px;
+    height: 52px;
+  }
+}

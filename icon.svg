@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+  </defs>
+  <!-- 배경 라운드 박스 -->
+  <rect width="512" height="512" rx="120" fill="url(#bg)"/>
+  
+  <!-- 귀 (좌, 우) -->
+  <polygon points="110,220 90,80 220,160" fill="#7C3AED"/>
+  <polygon points="120,200 110,110 200,165" fill="#F472B6"/>
+  <polygon points="402,220 422,80 292,160" fill="#7C3AED"/>
+  <polygon points="392,200 402,110 312,165" fill="#F472B6"/>
+  
+  <!-- 얼굴 본체 -->
+  <circle cx="256" cy="300" r="160" fill="#A78BFA"/>
+  
+  <!-- 눈 (좌, 우) -->
+  <circle cx="190" cy="280" r="22" fill="#1E1B4B"/>
+  <circle cx="180" cy="272" r="8" fill="#FFFFFF"/>
+  <circle cx="196" cy="286" r="4" fill="#FFFFFF"/>
+  
+  <circle cx="322" cy="280" r="22" fill="#1E1B4B"/>
+  <circle cx="312" cy="272" r="8" fill="#FFFFFF"/>
+  <circle cx="328" cy="286" r="4" fill="#FFFFFF"/>
+  
+  <!-- 볼터치 -->
+  <ellipse cx="150" cy="330" rx="25" ry="16" fill="#F43F5E" opacity="0.6"/>
+  <ellipse cx="362" cy="330" rx="25" ry="16" fill="#F43F5E" opacity="0.6"/>
+  
+  <!-- 코 -->
+  <polygon points="244,320 268,320 256,334" fill="#F43F5E"/>
+  
+  <!-- 입 ('3' 고양이 입) -->
+  <path d="M 230,345 Q 243,360 256,345 Q 269,360 282,345" fill="none" stroke="#4C1D95" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "name": "귀여운 동물 테트리스",
+  "short_name": "동물테트리스",
+  "description": "PC와 스마트폰에서 즐기는 귀여운 동물 얼굴 블록 테트리스 게임",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1E1B4B",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
